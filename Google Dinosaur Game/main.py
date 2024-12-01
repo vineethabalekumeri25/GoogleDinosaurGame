@@ -5,19 +5,19 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from PIL import ImageGrab
 import numpy as np
 import cv2
+
 
 # Initialize the WebDriver
 def start_game():
     # Set up Chrome WebDriver
     options = webdriver.ChromeOptions()
-    driver = webdriver.Chrome(executable_path='C:\path\to\chromedriver',
+    driver = webdriver.Chrome(executable_path=r'C:\Path\to\chromedriver',
                               options=options)  # Set the correct path to chromedriver
     driver.get("https://elgoog.im/t-rex/")  # Open the Dino game URL
 
-    # Wait for the game to load
+    # Wait for the game to load (waiting for canvas element to be visible)
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "canvas")))
 
     # Start the game by simulating the space key to start the dino
@@ -25,6 +25,7 @@ def start_game():
     body.send_keys(Keys.SPACE)
 
     return driver
+
 
 # Detect obstacles and jump
 def detect_and_jump():
@@ -42,6 +43,7 @@ def detect_and_jump():
     if obstacle_pixels > 1000:  # Adjust this threshold depending on your screen and obstacle detection area
         pyautogui.press('space')  # Jump
 
+
 # Main game loop
 def run_game():
     driver = start_game()
@@ -52,8 +54,8 @@ def run_game():
             time.sleep(0.1)  # Small delay to mimic human reaction time
     except KeyboardInterrupt:
         print("Game over!")
-    finally:
-        driver.quit()  # Ensure WebDriver is properly closed
+        driver.quit()
+
 
 if __name__ == "__main__":
     run_game()
