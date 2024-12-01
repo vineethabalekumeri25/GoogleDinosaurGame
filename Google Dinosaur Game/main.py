@@ -8,12 +8,11 @@ from selenium.webdriver.support import expected_conditions as EC
 import numpy as np
 import cv2
 
-
 # Initialize the WebDriver
 def start_game():
     # Set up Chrome WebDriver
     options = webdriver.ChromeOptions()
-    driver = webdriver.Chrome(executable_path=r'C:\Path\to\chromedriver',
+    driver = webdriver.Chrome(executable_path=r'C:\path\to\chromedriver',
                               options=options)  # Set the correct path to chromedriver
     driver.get("https://elgoog.im/t-rex/")  # Open the Dino game URL
 
@@ -25,7 +24,6 @@ def start_game():
     body.send_keys(Keys.SPACE)
 
     return driver
-
 
 # Detect obstacles and jump
 def detect_and_jump():
@@ -43,7 +41,6 @@ def detect_and_jump():
     if obstacle_pixels > 1000:  # Adjust this threshold depending on your screen and obstacle detection area
         pyautogui.press('space')  # Jump
 
-
 # Main game loop
 def run_game():
     driver = start_game()
@@ -54,8 +51,7 @@ def run_game():
             time.sleep(0.1)  # Small delay to mimic human reaction time
     except KeyboardInterrupt:
         print("Game over!")
-        driver.quit()
-
+        driver.quit() # Ensure WebDriver is properly closed
 
 if __name__ == "__main__":
     run_game()
